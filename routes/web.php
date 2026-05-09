@@ -47,8 +47,9 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/cities-update/{id}', [CitiesController::class, 'update'])->name('cities.update');
         Route::delete('/cities-delete/{id}', [CitiesController::class, 'delete'])->name('cities.delete');
 
-        Route::get('/business-trip', [BusinessTripController::class, 'index'])->name('business.trip');
+        Route::get('/business-trip', [BusinessTripController::class, 'approvalRequest'])->name('business.trip');
         Route::put('/business-trip/approval/{id}', [BusinessTripController::class, 'approval'])->name('business.trip.approval');
+        Route::get('/business-trip/approval-history', [BusinessTripController::class, 'approvalHistory'])->name('business.trip.approval.history');
     });
 
 });
