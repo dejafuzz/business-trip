@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Sdm\BusinessTripController;
 use App\Http\Controllers\Sdm\CitiesController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/cities-create', [CitiesController::class, 'create'])->name('cities.create');
         Route::put('/cities-update/{id}', [CitiesController::class, 'update'])->name('cities.update');
         Route::delete('/cities-delete/{id}', [CitiesController::class, 'delete'])->name('cities.delete');
+
+        Route::get('/business-trip', [BusinessTripController::class, 'index'])->name('business.trip');
+        Route::put('/business-trip/approval/{id}', [BusinessTripController::class, 'approval'])->name('business.trip.approval');
     });
 
 });
