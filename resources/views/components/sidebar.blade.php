@@ -38,6 +38,12 @@
         </li>
 
         <li class="nav-item">
+            <a href="{{ route('sdm.business.trip.approval.history') }}" class="nav-link {{ Request::routeIs('sdm.business.trip.approval.history') ? 'active' : '' }}">
+                History Pengajuan
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a href="{{ route('sdm.cities') }}" class="nav-link {{ Request::routeIs('sdm.cities') ? 'active' : '' }}">
                 Master Kota
             </a>
