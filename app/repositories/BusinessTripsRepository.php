@@ -15,4 +15,16 @@ class BusinessTripsRepository implements BusinessTripsRepositoryInterface {
     {
         return BusinessTrips::create($data);
     }
+
+    public function getAll()
+    {
+        return BusinessTrips::all();
+    }
+
+    public function approval(int $id, string $status)
+    {
+        $bussinesTrip = BusinessTrips::find($id);
+        $bussinesTrip->status = $status;
+        $bussinesTrip->save();
+    }
 }
