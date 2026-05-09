@@ -42,7 +42,7 @@ class AuthController extends Controller
                 case 2:
                     return redirect()->route('employee.business.trips');
                 case 3:
-                    return redirect()->route('sdm.cities');
+                    return redirect()->route('sdm.business.trip');
                 default:
                     return redirect()->back()->with('error', 'Role tidak sesuai.');
             }
