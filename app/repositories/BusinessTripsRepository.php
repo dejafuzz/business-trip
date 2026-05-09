@@ -16,9 +16,9 @@ class BusinessTripsRepository implements BusinessTripsRepositoryInterface {
         return BusinessTrips::create($data);
     }
 
-    public function getAll()
+    public function approvalRequest()
     {
-        return BusinessTrips::all();
+        return BusinessTrips::where('status', 'PENDING')->orderBy('created_at', 'desc')->get();
     }
 
     public function approval(int $id, string $status)
@@ -26,5 +26,10 @@ class BusinessTripsRepository implements BusinessTripsRepositoryInterface {
         $bussinesTrip = BusinessTrips::find($id);
         $bussinesTrip->status = $status;
         $bussinesTrip->save();
+    }
+
+    public function approvalHistory()
+    {
+        return BusinessTrips::whereNot('status', 'PENDING')->orderBy('created_at', 'desc')->get();
     }
 }
