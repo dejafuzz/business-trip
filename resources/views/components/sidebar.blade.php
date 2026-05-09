@@ -32,7 +32,7 @@
 
         @if (Auth::check() && Auth::user()->role_id == '3')
         <li class="nav-item">
-            <a href="{{ route('sdm.cities') }}" class="nav-link {{ Request::routeIs('sdm.cities') ? 'active' : '' }}">
+            <a href="{{ route('sdm.business.trip') }}" class="nav-link {{ Request::routeIs('sdm.business.trip') ? 'active' : '' }}">
                 Pengajuan Perdin
             </a>
         </li>
