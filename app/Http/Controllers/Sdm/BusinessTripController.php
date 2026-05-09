@@ -18,9 +18,9 @@ class BusinessTripController extends Controller
         $this->businessTripRepository = $bsuinessTripRepository;
     }
 
-    public function index() {
+    public function approvalRequest() {
 
-        $businessTrips = $this->businessTripRepository->getAll();
+        $businessTrips = $this->businessTripRepository->approvalRequest();
 
         return view('sdm.businesstrips.index', compact('businessTrips'));
     }
@@ -37,4 +37,11 @@ class BusinessTripController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat Approval.');
         }
     } 
+
+    public function approvalHistory() {
+
+        $businessTrips = $this->businessTripRepository->approvalHistory();
+
+        return view('sdm.businesstrips.approval-history', compact('businessTrips'));
+    }
 }
