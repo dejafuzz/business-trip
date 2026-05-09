@@ -38,7 +38,6 @@
                         <th>Tujuan Perdin</th>
                         <th>Kota</th>
                         <th>Tanggal & Durasi</th>
-                        <th>Status</th>
                         <th width="120">Action</th>
                     </tr>
 
@@ -90,31 +89,6 @@
                                     ({{ $trip->duration_days }} Hari)
 
                                 </small>
-
-                            </td>
-
-                            <!-- Status -->
-                            <td>
-
-                                @if($trip->status == 'PENDING')
-
-                                    <span class="badge bg-warning text-dark">
-                                        Pending
-                                    </span>
-
-                                @elseif($trip->status == 'APPROVED')
-
-                                    <span class="badge bg-success">
-                                        Approved
-                                    </span>
-
-                                @elseif($trip->status == 'REJECTED')
-
-                                    <span class="badge bg-danger">
-                                        Rejected
-                                    </span>
-
-                                @endif
 
                             </td>
 
