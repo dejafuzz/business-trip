@@ -12,8 +12,14 @@ Aplikasi Perjalanan Dinas (Perdin) merupakan aplikasi berbasis web yang digunaka
 * Role management:
 
   * ADMIN
+    * username: ```Ahmad Alexander```
+    * password: ```123123123```
   * PEGAWAI
+    * username: ```Citra Charlotte```
+    * password: ```123123123```
   * SDM
+    * username: ```Michael Dimas```
+    * password: ```123123123```
 
 ## Admin
 
