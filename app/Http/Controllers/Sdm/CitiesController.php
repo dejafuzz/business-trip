@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sdm;
 
 use App\Http\Controllers\Controller;
+use App\repositories\interfaces\BusinessTripsRepositoryInterface;
 use App\repositories\interfaces\CitiesRepositoryInterface;
 use App\validations\CityValidation;
 use Illuminate\Http\Request;
@@ -11,13 +12,16 @@ use Illuminate\Support\Facades\Validator;
 class CitiesController extends Controller
 {
     protected CitiesRepositoryInterface $citiesRepository;
+    protected BusinessTripsRepositoryInterface $businessTripRepository;
 
     public function __construct
     (
-        CitiesRepositoryInterface $citiesRepository
+        CitiesRepositoryInterface $citiesRepository,
+        BusinessTripsRepositoryInterface $businessTripRepository,
     )
     {
         $this->citiesRepository = $citiesRepository;
+        $this->businessTripRepository = $businessTripRepository;
     }
 
     public function cities() {
@@ -62,8 +66,27 @@ class CitiesController extends Controller
     }
 
     public function delete(int $id) {
-        $this->citiesRepository->delete($id);
 
-        return redirect()->back()->with('success', 'Data kota berhasil dihapus.');
+        try {
+
+            $city = $this->citiesRepository->findById($id);
+
+            $relationCheck = $this->businessTripRepository->relationCheck(
+                $city->id,
+                $city->id
+            );
+
+            if ($relationCheck) {
+                return redirect()->back()->with('error', 'Kota tidak dapat dihapus karena masih digunakan pada data perjalanan dinas.')->withInput();
+            }
+
+            $this->citiesRepository->delete($id);
+
+            return redirect()->back()->with('success', 'Data kota berhasil dihapus.');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan data kota.')->withInput();
+        }
+
     }
 }
