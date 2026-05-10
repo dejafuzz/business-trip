@@ -23,11 +23,6 @@
                 Manajemen User
             </a>
         </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                Role User
-            </a>
-        </li>
         @endif
 
         @if (Auth::check() && Auth::user()->role_id == '3')
