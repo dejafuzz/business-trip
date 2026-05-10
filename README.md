@@ -1,66 +1,202 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplikasi Perjalanan Dinas (Perdin)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi Perjalanan Dinas (Perdin) merupakan aplikasi berbasis web yang digunakan untuk melakukan pengelolaan perjalanan dinas pegawai dalam sebuah perusahaan. Aplikasi ini memungkinkan pegawai melakukan pengajuan perjalanan dinas serta membantu bagian SDM dalam melakukan approval dan perhitungan uang saku perjalanan dinas secara otomatis berdasarkan jarak dan lokasi tujuan perjalanan.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Authentication & Authorization
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* Login menggunakan username dan password
+* Role management:
 
-## Learning Laravel
+  * ADMIN
+  * PEGAWAI
+  * SDM
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Admin
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* Kelola User
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Pegawai
 
-## Laravel Sponsors
+* Mengajukan perjalanan dinas
+* Melihat daftar pengajuan perjalanan dinas
+* Perhitungan otomatis:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+  * Durasi perjalanan
+  * Jarak perjalanan
+  * Total uang saku
 
-### Premium Partners
+## SDM
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+* Melihat seluruh pengajuan perjalanan dinas
+* Approve / Reject pengajuan
+* Melihat total uang saku yang harus dibayarkan
 
-## Contributing
+## Master Data Kota
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Nama kota
+* Latitude & Longitude
+* Provinsi
+* Pulau
+* Status luar negeri
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Tech Stack
 
-## Security Vulnerabilities
+| Name       | Version |
+| --------   | ------- |
+| Laravel    | ```v10```     |
+| php        | ```v8.2.28``` |
+| PostgreSQL | ```v15.13``` |
+| Bootstrap  | ```v5.3```    |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+# Database Design
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## roles
+
+| Column   | Type    |
+| -------- | ------- |
+| id_role  | bigint  |
+| level    | varchar |
+
+## users
+
+| Column   | Type    |
+| -------- | ------- |
+| id       | bigint  |
+| name     | varchar |
+| username | varchar |
+| password | varchar |
+| role     | varchar |
+
+---
+
+## cities
+
+| Column     | Type    |
+| ---------- | ------- |
+| id         | bigint  |
+| name       | varchar |
+| latitude   | decimal |
+| longitude  | decimal |
+| province   | varchar |
+| island     | varchar |
+| is_foreign | boolean |
+
+---
+
+## business_trips
+
+| Column              | Type      |
+| ------------------- | --------- |
+| id                  | bigint    |
+| employee_id         | bigint    |
+| origin_city_id      | bigint    |
+| destination_city_id | bigint    |
+| purpose             | text      |
+| departure_date      | date      |
+| return_date         | date      |
+| duration_days       | integer   |
+| distance_km         | decimal   |
+| daily_allowance     | decimal   |
+| currency            | varchar   |
+| total_allowance     | decimal   |
+| status              | varchar   |
+| approved_by         | bigint    |
+| approved_at         | timestamp |
+
+---
+
+# Business Rules
+
+## Uang Saku Perjalanan Dinas
+
+| Kondisi                          | Nominal                  |
+| -------------------------------- | ------------------------ |
+| 0 - 60 KM                        | Tidak mendapat uang saku |
+| > 60 KM dalam satu provinsi      | Rp 200.000 / hari        |
+| > 60 KM beda provinsi satu pulau | Rp 250.000 / hari        |
+| > 60 KM beda pulau               | Rp 300.000 / hari        |
+| Luar Negeri                      | USD 50 / hari            |
+
+---
+
+# Perhitungan Jarak
+
+Perhitungan jarak menggunakan koordinat latitude dan longitude antar kota dengan metode Haversine Formula.
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/dejafuzz/business-trip.git
+```
+
+## Masuk ke Folder Project
+
+```bash
+cd business-trip
+```
+
+## Install Dependency
+
+```bash
+composer install
+```
+
+## Copy Environment
+
+```bash
+cp .env.example .env
+```
+
+## Generate Key
+
+```bash
+php artisan key:generate
+```
+
+## Setup Database
+
+Sesuaikan konfigurasi database pada file `.env`
+
+```env
+DB_DATABASE=perdin-example
+DB_USERNAME=root-example
+DB_PASSWORD=
+```
+
+## Run Migration
+
+```bash
+php artisan migrate
+```
+
+## Run Seeder
+
+```bash
+php artisan db:seed
+```
+
+## Jalankan Server
+
+```bash
+php artisan serve
+```
+
+---
+
+# Status Pengajuan
+
+* PENDING
+* APPROVED
+* REJECTED
