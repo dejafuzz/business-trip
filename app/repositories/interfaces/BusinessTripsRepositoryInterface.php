@@ -9,4 +9,5 @@ interface BusinessTripsRepositoryInterface {
     public function approvalRequest();
     public function approval(int $id, string $status);
     public function approvalHistory();
+    public function relationCheck(int $originCityId, int $destinationCityId);
 }

@@ -32,4 +32,12 @@ class BusinessTripsRepository implements BusinessTripsRepositoryInterface {
     {
         return BusinessTrips::whereNot('status', 'PENDING')->orderBy('created_at', 'desc')->get();
     }
+
+    public function relationCheck(int $originCityId, int $destionationCityId)
+    {
+        return BusinessTrips::where('origin_city_id', $originCityId)
+                ->orWhere('destination_city_id', $destionationCityId)
+                ->exists();
+            
+    }
 }
