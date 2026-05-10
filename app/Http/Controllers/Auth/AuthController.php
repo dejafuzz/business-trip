@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\repositories\interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -10,6 +11,13 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    protected UserRepositoryInterface $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function login() {
         return view('auth.login');
     }
@@ -27,6 +35,12 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $userCheck = $this->userRepository->findByUsername($request->input('username'));
+        if ($userCheck == null) {
+            return redirect()->back()->with('error', 'Akun tidak ditemukan.');
+        }
+
 
         Session::flash('username', $request->input('username'));
 
@@ -48,7 +62,7 @@ class AuthController extends Controller
             }
         }
 
-        return redirect()->back()->with('error', 'Username atau password salah!');
+        return redirect()->back()->with('error', 'Password salah!');
     }
 
 
